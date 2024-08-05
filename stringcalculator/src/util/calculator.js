@@ -4,10 +4,12 @@ export function addString(num) {
     }
     let delimiter = /,|\n/;
     if (num.startsWith("//")) {
-        const parts = num.split('\n');
-        delimiter = new RegExp(parts[0][2]);
-        num = parts[1];
+      const delimiterEndIndex = num.indexOf('\n');
+      delimiter = new RegExp(num.substring(2, delimiterEndIndex));
+      num = num.substring(delimiterEndIndex + 1);
     }
+
+
     const result = num.split(delimiter).map(Number);
 
     return result.reduce((sum, num) => sum + num, 0);
